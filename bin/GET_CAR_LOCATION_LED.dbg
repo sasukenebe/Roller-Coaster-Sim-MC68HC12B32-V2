@@ -1,0 +1,271 @@
+      XDEF GETCARLOCATION_LED
+      XREF RIDEARRAYCOUNTRIDEINMOTION
+      XREF PORT_S
+      XREF VAR1
+      XREF PUSHBUTTONTIMER
+      XREF FLASHONLEDS
+      XREF FLASHOFFLEDS
+        
+      XREF CURRENTRIDEPART
+      
+      
+      GETCARLOCATION_LED:
+      PSHX
+      PSHY
+      PSHD
+      
+      
+      LDX PUSHBUTTONTIMER
+      CPX #0
+      BNE FLASHTHELEDSBRO
+      
+      JMP GO_AHEAD
+      
+      FLASHTHELEDSBRO:
+      
+      LDAA FLASHONLEDS
+      CMPA #1
+      BEQ FLASHONTHELEDS
+      JMP FLASHOFFTHELEDS
+      FLASHONTHELEDS:
+      MOVB #$FF,PORT_S
+      JMP SKIP_THISSHITBRO
+      
+      
+      ;ELSE
+      FLASHOFFTHELEDS:
+      MOVB #0,PORT_S
+      JMP SKIP_THISSHITBRO
+ 
+	
+
+      
+      
+		GO_AHEAD:
+      
+      ;DETERMINE WHAT PART OF RIDE WE ARE ON, PUT THIS IN LOW PART OF VAR1 IE MOVB #$08,VAR1
+      
+       LDAA RIDEARRAYCOUNTRIDEINMOTION
+      CMPA #0
+      BEQ ONE
+      
+      
+      LDAA RIDEARRAYCOUNTRIDEINMOTION
+      CMPA #1
+      BEQ TWO;2TO3
+      
+      LDAA RIDEARRAYCOUNTRIDEINMOTION
+      CMPA #2
+      BEQ THREE;3TO7
+      
+      LDAA RIDEARRAYCOUNTRIDEINMOTION
+      CMPA #3
+      BEQ FOUR;4TO15
+      
+      LDAA RIDEARRAYCOUNTRIDEINMOTION
+      CMPA #4
+      BEQ FIVE;5TO31
+      
+      LDAA RIDEARRAYCOUNTRIDEINMOTION
+      CMPA #5
+      BEQ SIX;6TO63
+      
+           LDAA RIDEARRAYCOUNTRIDEINMOTION
+      CMPA #6
+      BEQ SEVEN;7T127
+      
+      
+           LDAA RIDEARRAYCOUNTRIDEINMOTION
+      CMPA #7
+      BEQ EIGHT;8TOFF
+      
+      	LDAA RIDEARRAYCOUNTRIDEINMOTION
+      	CMPA #8
+      	
+      BEQ WE_NEED_TO_END_THE_COCK_SUCKING_RIDE_JUMP
+      
+      JMP SKIPTHISMY_GUY
+      
+   WE_NEED_TO_END_THE_COCK_SUCKING_RIDE_JUMP:
+   JMP WE_NEED_TO_END_THE_COCK_SUCKING_RIDE
+   
+      SKIPTHISMY_GUY:
+   
+      
+     ONE:
+	MOVB #$01,VAR1
+	
+     
+     
+     JMP END_GETCARLOCATION_LED
+     
+     
+     TWO:
+	MOVB #$02,VAR1
+	
+
+     JMP END_GETCARLOCATION_LED
+     
+     
+     THREE:
+	MOVB #$03,VAR1
+	
+     
+     JMP END_GETCARLOCATION_LED
+     
+     
+     FOUR:
+
+   	MOVB #$04,VAR1
+	
+   
+     JMP END_GETCARLOCATION_LED
+     
+     
+     FIVE:
+
+     	MOVB #$05,VAR1
+	
+    
+     JMP END_GETCARLOCATION_LED
+     
+     
+     SIX:
+     	MOVB #$06,VAR1
+	
+
+     
+    
+     JMP END_GETCARLOCATION_LED
+     
+     
+     SEVEN:
+     
+     	MOVB #$07,VAR1
+	
+
+    
+     JMP END_GETCARLOCATION_LED
+     
+     
+     EIGHT:
+      
+	MOVB #$08,VAR1
+	
+     
+      
+      JMP END_GETCARLOCATION_LED
+      
+      
+      
+      
+      
+      
+      
+      END_GETCARLOCATION_LED:
+      
+      
+      
+          
+      ;NOW WE NEED TO OUTPUT WHAT TYPE OF RIDEPART WE ARE ON, STORE THIS IN HIGH PART OF VAR1 THEN WRITE TO PORT S  
+      
+      
+      LDAA CURRENTRIDEPART
+      CMPA #1 ;(L)
+      BEQ LEFT
+      
+            LDAA CURRENTRIDEPART
+      CMPA #2 ;(R)
+      BEQ RIGHT
+      
+            LDAA CURRENTRIDEPART
+      CMPA #3 ;(H)
+      BEQ HILL
+      
+            LDAA CURRENTRIDEPART
+      CMPA #4 ;(S)
+      BEQ STR8
+      
+            LDAA CURRENTRIDEPART
+      CMPA #5 ;(BEGI)
+      BEQ BEGIN
+      
+            LDAA CURRENTRIDEPART
+      CMPA #6 ;(6END)
+      BEQ END
+      
+      
+      
+      LEFT:
+
+      LDAA #$80
+      ORAA VAR1
+      STAA PORT_S
+      
+      JMP END_GETCARPART_FOR_LED
+      
+      
+      RIGHT:
+      
+      LDAA #$40
+      ORAA VAR1
+       STAA PORT_S
+      
+      JMP END_GETCARPART_FOR_LED
+      HILL:
+      
+      
+      LDAA #$20
+      ORAA VAR1
+       STAA PORT_S
+      
+      JMP END_GETCARPART_FOR_LED
+      STR8:
+      
+      LDAA #$10
+      ORAA VAR1
+       STAA PORT_S
+      
+      JMP END_GETCARPART_FOR_LED
+      BEGIN:
+      
+      LDAA #$00
+      ORAA VAR1
+       STAA PORT_S
+       
+       
+      JMP END_GETCARPART_FOR_LED
+      END:
+      
+      LDAA #$F0
+      ORAA VAR1
+       STAA PORT_S
+       
+       
+       
+	 JMP END_GETCARPART_FOR_LED
+
+      
+      
+      
+ END_GETCARPART_FOR_LED:     
+      
+      
+      
+      JMP SKIP_THISSHITBRO
+    WE_NEED_TO_END_THE_COCK_SUCKING_RIDE:
+    		
+    		MOVB #0,RIDEARRAYCOUNTRIDEINMOTION
+    		MOVB #0,PORT_S  
+      
+      SKIP_THISSHITBRO:
+      
+      
+      MOVB #0,VAR1
+      
+      PULD
+      PULY
+      PULX
+      
+      RTS
+      

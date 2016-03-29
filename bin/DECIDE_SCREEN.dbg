@@ -1,0 +1,945 @@
+               XDEF DECIDE_SCREEN
+                
+            XREF Entry, _Startup
+            XREF DISP
+            XREF SECOND
+            XREF COUNT
+            XREF TENS
+            XREF ONES
+            XREF PORT_S
+            XREF PORT_S_DDR
+            XREF RTIENABLEPORT
+            XREF RTIENABLE
+            XREF RTICTL
+		      	XREF PORT_U
+		      	XREF PORT_U_DDR
+		      	XREF PORT_U_PSR
+		      	XREF PORT_U_CR
+		      	XREF LOOKUP
+		      	XREF TABLE
+		      	XREF PORT_T
+		      	XREF PORT_T_DDR
+		      	XREF RTIFLAG
+		      	XREF hundredsDigit
+	      		XREF tensDigit
+	      		XREF onesDigit
+	      		XREF stringpointer
+	      		XREF HEXVALUE
+	      		XREF PORT_P
+	      		XREF PORT_P_DDR
+	      		XREF SWITCHVALUE
+	      		XREF STEPPERSPEED_COUNTER
+	      		XREF STEPPER_SEQUENCE
+	      		XREF STEPPERSEQUENCE_COUNT
+	      		XREF STEPPERSPEED
+	      		XREF HEXKEYPRESSED
+	      		XREF STEPPERMOTOR_DIRECTION	 	;0 = REVERSE 1 = FORWARD
+	      		XREF STEPPERSEQUENCEREVERSE_COUNT
+	      		XREF STEPPER_SEQUENCE_REVERSE
+	      		XREF ONTIME
+	      		XREF OFFTIME
+	      		XREF RIDEARRAYCOUNT
+	      		XREF STARTRIDEFLAG
+	      		XREF SECRETPASSWORDTIMER
+			XREF SEEPHOTOSSTRING
+			XREF SECRETPASSWORDSTRING
+	      		
+	      		
+            XREF CURRENTCAR                      
+            XREF CARPASSENGERS                   
+            XREF CARADULTKIDS                    
+            XREF CARSEATSOCCUPIED                
+            XREF CARPHOTOOPTIONS  
+	      		;**FLAGS******
+	      		XREF DC_FLAG
+	      	  XREF PUSHBUTTONFLAG
+	      	  XREF SECONDSCHANGED
+	      	  XREF MINUTESCHANGED
+	      	  XREF HOURSCHANGED
+	      	  XREF STEPPERMOTORFLAG
+	      	  XREF BOTHSWITCHESHIGH
+	      	  XREF BOTHSWITCHESLOW
+	      	  XREF WELCOMEFLAG
+	      	  XREF MAINMENUFLAG
+	      	  XREF MAINMENU1FLAG
+	      	  XREF MAINMENU2FLAG
+	      	  XREF MAINMENU3FLAG
+	      	  XREF MAINMENU4FLAG
+		XREF SEEPHOTO1STRING
+		XREF SEEPHOTO2STRING
+		XREF SEEPHOTO3STRING
+	      	  
+	      	  XREF RIDEINMOTIONFLAG
+	      	  XREF PASSWORDLOCKED
+	      	  XREF RIDESPEEDFLAG
+	      	  XREF DATETIMEFLAG
+	      	  XREF SYSPASSFLAG
+	      	  XREF CARSETTINGSFLAG
+	      	  XREF RIDELAYOUTFLAG
+	      	  XREF CHANGEDATEFLAG
+	      	  XREF CHANGETIMEFLAG
+	      	  XREF CARSETTINGS1FLAG
+	      	  XREF CARSETTINGS2FLAG
+	      	  XREF CARSETTINGS3FLAG
+	      	  XREF CARSETTINGS4FLAG
+	      	  ;****END FLAGS
+	      	  
+	      	  ;****TIMERS******
+	      	  XREF PUSHBUTTONTIMER
+	      	  XREF WELCOMETIMER
+
+	      		XREF DC_MOTORCOUNTER
+	      	  XREF DC_SPEED
+	      	  XREF STRING_COUNTER
+	      	  XREF RIDELAYOUTINTROTIMER
+	      	  XREF SWITCH7NOTHIGHTIMER
+	 
+	      	  ;********STRINGS***************
+	      	  XREF LAURA_STRING
+	      	  XREF WELCOME_STRING
+	      	  XREF CURRENTSTRING
+	      	  XREF RYANSTRING
+	      	  XREF MAINMENU1STRING
+	      	  XREF MAINMENU2STRING
+	      	  XREF MAINMENU3STRING
+			XREF MAINMENU4STRING
+			XREF SWITCH7NOTHIGHSTRING
+		
+	      	  
+            XREF DISPLAYTIMESTRING
+            XREF RIDESPEEDSTRING
+            XREF DATETIMESTRING
+            XREF SYSPASSSTRING
+            XREF CARSETTINGSSTRING
+            XREF RIDELAYOUTSTRING
+            XREF CHANGEDATESTRING
+            XREF CHANGETIMESTRING
+            XREF RIDELAYOUTSTRINGC
+            XREF RIDELAYOUTINTROSTRING
+            XREF CARSETTINGS1STRING
+            XREF CARSETTINGS2STRING
+            XREF CARSETTINGS3STRING
+            XREF CARSETTINGS4STRING
+            XREF RIDEINTROSTRING
+            XREF RIDEENDFLAG
+            XREF RIDEOUTROSTRING
+            XREF IRQ_STRING
+            XREF IRQ_FLAG
+            XREF MAINMENUDISPLAYTIMESTRING
+            XREF SEEPHOTOSFLAG
+	    XREF PLAYASONGFLAG
+		XREF SEEPHOTO1FLAG
+		XREF SEEPHOTO2FLAG
+		XREF SEEPHOTO3FLAG
+            
+        
+	      	  ;******END STRINGS*************
+	      	  
+	      	  ;******SWITCHES*****
+	      	  XREF SWITCH_MSBHIGH
+	      	  XREF SWITCH_LSBHIGH
+	      	  XREF SWITCHESOFF
+	      	  XREF BOTHSWITCHSAME
+          	XREF SWITCHFLIPPED
+          	XREF PORT_T_VALUE
+
+			      ;******END SWITCHES
+			      
+			      ;*****CLOCK
+			      XREF CLOCKCOUNT
+			      XREF SECONDS
+			      XREF MINUTES
+			      XREF HOURS
+			      XREF TENSECONDS
+			      
+            XREF ONESECONDS
+            XREF TENMINUTES
+            XREF ONEMINUTES
+            XREF TENHOURS
+            XREF ONEHOURS
+            XREF DISPLAY_TIME_BOTTOM_RIGHT_FLAG
+      	    XREF RTI_CLOCK
+      	    XREF INVALIDCARSELECTIONTIMER
+      	    XREF INVALIDCARSELECTIONSTRING
+      	    XREF STARTRIDETIMER
+      	    XREF RIDEINMOTIONSTRING
+      	    XREF POTVALUERIDEINMOTIONSTRING
+      	    XREF POTVALUECHANGEDFLAG
+      	    XREF POTVALUECHANGEDTIMER
+      	    XREF RIDEOUTROTIMER
+              XREF RIDEINMOTIONSWITCH2FLIPPEDSTRING
+              XREF PLAYASONGSTRING       
+               
+DECIDE_SCREEN:
+                    PSHX
+                    PSHY
+                    PSHD
+               
+               
+               
+               
+               
+               
+               
+  ;ALWAYS CHECK WELCOME FLAG FIRST, IT HAS PRECEDENCE 
+WELCOMESCREEN_CHECK:               
+               LDAA WELCOMEFLAG
+               CMPA #1
+              
+               BNE DONTDISPLAY_WELCOMESTRING    ;IF FLAG LOW, DONT DISPLAY WELCOME
+               
+   DISPLAY_WELCOME_SCREEN:
+          LDX #WELCOME_STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_WELCOMESTRING:
+   
+END_WELCOMESCREEN_CHECK:          
+          
+          
+          
+          
+          
+          
+          ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          LDX SECRETPASSWORDTIMER
+          CPX #0
+          BEQ DONT_DISPLAY_SECRETPASSWORDSTRING
+          LDX #SECRETPASSWORDSTRING
+          STX CURRENTSTRING
+          JMP END_DECIDE_SCREEN
+          
+          
+          
+          DONT_DISPLAY_SECRETPASSWORDSTRING:
+          
+          ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          
+          
+          
+          
+          
+          ;~~~~~~~~~~~~~~~~~~~~~~~~~~
+          LDX SWITCH7NOTHIGHTIMER
+          CPX #0
+          BNE DONT_START_RIDE_BECAUSEOFSWITCH_SCREEN
+          JMP DONT_SHOW_SWITCH7STRING
+          
+          
+          DONT_START_RIDE_BECAUSEOFSWITCH_SCREEN:
+          LDX #SWITCH7NOTHIGHSTRING
+          STX CURRENTSTRING
+          JMP END_DECIDE_SCREEN
+          
+          DONT_SHOW_SWITCH7STRING:
+          
+          ;~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          
+          
+          
+          
+          
+          
+;MAIN MENU
+			BRSET PORT_T_VALUE,#%00000010,DISPLAY_TIME_MAIN_MENU
+		    JMP DONT_DISPLAY_TIME_MAIN_MENU
+
+
+
+              LDAA MAINMENUFLAG
+              CMPA #0
+              BEQ END_MAINMENUSTRINGS          
+
+
+
+DISPLAY_TIME_MAIN_MENU:
+		LDX #MAINMENUDISPLAYTIMESTRING
+		STX CURRENTSTRING
+		JMP END_DECIDE_SCREEN
+
+
+DONT_DISPLAY_TIME_MAIN_MENU:		    
+
+
+          
+;MENU1 SCREEN          
+MAINMENU1SCREEN_CHECK:               
+               LDAA MAINMENUFLAG
+               CMPA #1              
+              
+               BNE DONTDISPLAY_MAINMENU1
+               
+   DISPLAY_MAINMENU1STRING:
+   
+          LDX #MAINMENU1STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_MAINMENU1:
+   
+END_MAINMENU1SCREEN_CHECK:          
+          
+  
+  
+  
+  
+  
+  
+  ;MENU2 SCREEN          
+MAINMENU2SCREEN_CHECK:               
+               LDAA MAINMENUFLAG
+               CMPA #2              
+              
+               BNE DONTDISPLAY_MAINMENU2
+               
+   DISPLAY_MAINMENU2:
+          LDX #MAINMENU2STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_MAINMENU2:
+   
+END_MAINMENU2SCREEN_CHECK:          
+          
+          
+          
+          
+          
+          ;MENU3 SCREEN          
+MAINMENU3SCREEN_CHECK:               
+               LDAA MAINMENUFLAG
+               CMPA #3              
+              
+               BNE DONTDISPLAY_MAINMENU3
+               
+   DISPLAY_MAINMENU3:
+          LDX #MAINMENU3STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_MAINMENU3:
+   
+END_MAINMENU3SCREEN_CHECK:     
+
+
+
+
+
+          ;MENU4 SCREEN          
+MAINMENU4SCREEN_CHECK:               
+               LDAA MAINMENUFLAG
+               CMPA #4              
+              
+               BNE DONTDISPLAY_MAINMENU4
+               
+   DISPLAY_MAINMENU4:
+          LDX #MAINMENU4STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_MAINMENU4:
+   
+END_MAINMENU4SCREEN_CHECK:      
+ 
+
+
+
+
+  END_MAINMENUSTRINGS:      ;IF HERE, WERE NOT ON A MAIN MENU SCREEN
+
+
+
+
+
+
+
+          ;RIDE SPEED SCREEN          
+RIDESPEEDSCREEN_CHECK:               
+               LDAA RIDESPEEDFLAG
+               CMPA #1              
+              
+               BNE DONTDISPLAY_RIDESPEED
+               
+   DISPLAY_RIDESPEED:
+          LDX #RIDESPEEDSTRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_RIDESPEED:
+   
+END_RIDESPEED_CHECK:    
+          
+          
+
+          ;DATE TIME SCREEN          
+DATETIME_CHECK:               
+               LDAA DATETIMEFLAG
+               CMPA #1              
+              
+               BNE DONTDISPLAY_DATETIME
+               
+   DISPLAY_DATETIME:
+          LDX #DATETIMESTRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_DATETIME:
+   
+END_DATETIME_CHECK:    
+
+
+
+
+
+
+;CHANGE DATE
+
+CHANGEDATE_CHECK:               
+               LDAA CHANGEDATEFLAG
+               CMPA #1              
+              
+               BNE DONTDISPLAY_CHANGEDATE
+               
+   DISPLAY_CHANGEDATE:
+          LDX #CHANGEDATESTRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_CHANGEDATE:
+   
+END_CHANGEDATE_CHECK:  
+
+
+
+
+;CHANGE TIME
+CHANGETIME_CHECK:               
+               LDAA CHANGETIMEFLAG
+               CMPA #1              
+              
+               BNE DONTDISPLAY_CHANGETIME
+               
+   DISPLAY_CHANGETIME:
+          LDX #CHANGETIMESTRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_CHANGETIME:
+   
+END_CHANGETIME_CHECK:  
+
+
+
+       
+          ;SYS PASS SCREEN          
+SYSPASS_CHECK:               
+               LDAA SYSPASSFLAG
+               CMPA #1              
+              
+               BNE DONTDISPLAY_SYSPASS
+               
+   DISPLAY_SYSPASS:
+          LDX #SYSPASSSTRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_SYSPASS:
+   
+END_SYSPASS_CHECK:
+
+
+
+
+
+
+            ;CARPASSENGERS
+	      		;CARADULTKIDS
+	      		;CARSEATSOCCUPIED
+	      		;CARPHOTOOPTIONS
+
+          ;CAR SETTINGS SCREEN          
+CARSETTINGS_CHECK:         
+
+
+               LDAA CARSETTINGSFLAG
+               CMPA #1              
+               BNE DONTDISPLAY_CARSETTINGS
+               
+   DISPLAY_CARSETTINGS:
+          LDX #CARSETTINGSSTRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_CARSETTINGS:
+   
+END_CARSETTINGS_CHECK: 
+
+   
+   
+   
+ ;CAR SETTINGS 1 (CARPASSENGERS)  
+ CARSETTINGS1_CHECK:         
+                   
+               LDAA CARSETTINGS1FLAG
+               CMPA #1              
+               BNE DONTDISPLAY_CARSETTINGS1
+               
+   DISPLAY_CARSETTINGS1:
+          LDX #CARSETTINGS1STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_CARSETTINGS1:
+   
+END_CARSETTINGS1_CHECK: 
+
+
+    
+
+
+
+
+
+
+
+;CAR SETTINGS 2
+CARSETTINGS2_CHECK:         
+
+
+                   
+               LDAA CARSETTINGS2FLAG
+               CMPA #1              
+              
+               BNE DONTDISPLAY_CARSETTINGS2
+               
+   DISPLAY_CARSETTINGS2:
+          LDX #CARSETTINGS2STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_CARSETTINGS2:
+   
+END_CARSETTINGS2_CHECK: 
+
+
+
+
+
+
+
+
+;CAR SETTINGS 3
+CARSETTINGS3_CHECK:         
+
+                   
+               LDAA CARSETTINGS3FLAG
+               CMPA #1              
+              
+               BNE DONTDISPLAY_CARSETTINGS3
+               
+   DISPLAY_CARSETTINGS3:
+          LDX #CARSETTINGS3STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_CARSETTINGS3:
+   
+END_CARSETTINGS3_CHECK: 
+
+       
+ 
+
+
+
+
+;CAR SETTINGS 4
+CARSETTINGS4_CHECK:         
+
+                   
+               LDAA CARSETTINGS4FLAG
+               CMPA #1              
+              
+               BNE DONTDISPLAY_CARSETTINGS4
+               
+   DISPLAY_CARSETTINGS4:
+          LDX #CARSETTINGS4STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_CARSETTINGS4:
+   
+END_CARSETTINGS4_CHECK:  
+ 
+ 
+ 
+ 
+          ;RIDE LAYOUT SCREEN          
+RIDELAYOUT_CHECK:      
+
+
+              LDAA RIDELAYOUTINTROTIMER
+              CMPA #0
+              BEQ CHECK_RIDE_LAYOUT_FLAG
+
+
+
+DISPLAYRIDELAYOUTWELCOME:
+                 LDX #RIDELAYOUTINTROSTRING
+                 STX CURRENTSTRING 
+              
+              
+              JMP END_RIDELAYOUT_CHECK
+
+
+  CHECK_RIDE_LAYOUT_FLAG:
+         
+               LDAA RIDELAYOUTFLAG
+               CMPA #1              
+               BNE DONTDISPLAY_RIDELAYOUT
+               
+   DISPLAY_RIDELAYOUT:
+          LDX #RIDELAYOUTSTRINGC
+          STX CURRENTSTRING
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_RIDELAYOUT:
+   
+END_RIDELAYOUT_CHECK:    
+
+
+
+
+
+
+
+
+
+
+
+          ;SEE PHOTOS SCREEN          
+SEEPHOTOS_CHECK:         
+
+
+               LDAA SEEPHOTOSFLAG
+               CMPA #1              
+               BNE DONTDISPLAY_SEEPHOTOS
+               
+   DISPLAY_SEEPHOTOS:
+          LDX #SEEPHOTOSSTRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_SEEPHOTOS:
+   
+END_SEEPHOTOS_CHECK: 
+
+
+
+
+
+          ;SEE PHOTO1 SCREEN          
+SEEPHOTO1_CHECK:         
+
+
+               LDAA SEEPHOTO1FLAG
+               CMPA #1              
+               BNE DONTDISPLAY_SEEPHOTO1
+               
+   DISPLAY_SEEPHOTO1:
+          LDX #SEEPHOTO1STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_SEEPHOTO1:
+   
+END_SEEPHOTO1_CHECK: 
+
+
+
+
+
+
+          ;SEE PHOTO2 SCREEN          
+SEEPHOTO2_CHECK:         
+
+
+               LDAA SEEPHOTO2FLAG
+               CMPA #1              
+               BNE DONTDISPLAY_SEEPHOTO2
+               
+   DISPLAY_SEEPHOTO2:
+          LDX #SEEPHOTO2STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_SEEPHOTO2:
+   
+END_SEEPHOTO2_CHECK: 
+
+
+
+
+
+
+
+
+          ;SEE PHOTO3 SCREEN          
+SEEPHOTO3_CHECK:         
+
+
+               LDAA SEEPHOTO3FLAG
+               CMPA #1              
+               BNE DONTDISPLAY_SEEPHOTO3
+               
+   DISPLAY_SEEPHOTO3:
+          LDX #SEEPHOTO3STRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_SEEPHOTO3:
+   
+END_SEEPHOTO3_CHECK: 
+
+
+
+
+
+
+
+
+          ;SEE PHOTO3 SCREEN          
+PLAYASONG_CHECK:         
+
+
+               LDAA PLAYASONGFLAG
+               CMPA #1              
+               BNE DONTDISPLAY_PLAYASONG
+               
+   DISPLAY_PLAYASONG:
+          LDX #PLAYASONGSTRING
+          STX CURRENTSTRING
+          
+          JMP END_DECIDE_SCREEN
+          
+   DONTDISPLAY_PLAYASONG:
+   
+END_PLAYASONG_CHECK: 
+
+		
+
+
+		
+
+
+
+
+
+;**********************************************************         
+          
+
+
+
+;*************RIDE IN MOTION***************************************************
+
+;screen priority in order of code is 
+								;ride in motion?
+								
+								;irq?
+								
+								;switch2 high?
+								
+								;pot value moved?
+								
+								;else display ??????ride in motion enter password???
+
+
+
+
+
+RIDE_IN_MOTION_SCREEN_CHECK:
+;INTRO SCREEN
+;?
+
+
+
+
+          LDAA RIDEINMOTIONFLAG
+          CMPA #1
+          BNE END_RIDE_IN_MOTION_SCREEN_CHECK
+
+
+
+;CHECK IRQ FLAG............
+IRQSTRING_CHECK:
+
+		
+		
+		LDAA IRQ_FLAG
+		CMPA #1
+		BEQ SHOW_IRQ_STRING
+		JMP DONT_SHOW_IRQ_STRING
+		
+		SHOW_IRQ_STRING:
+		
+		LDX #IRQ_STRING
+		STX CURRENTSTRING
+		JMP END_DECIDE_SCREEN
+		
+		DONT_SHOW_IRQ_STRING:
+		
+		
+				
+ END_IRQSTRING_CHECK:
+
+
+
+
+
+
+
+
+
+
+;POT VALUE CHANGED.........HEH HEH POT LIKE WEED GET IT??
+
+
+          LDX POTVALUECHANGEDTIMER                    ;IF POTVALUECHANGED TIMER IS ON, SHOW THAT STRING
+          CPX #0
+          BEQ END_POTVALUECHANGED_CHECK
+          
+          BRSET PORT_T_VALUE,#%00000010,END_POTVALUECHANGED_CHECK
+          
+
+          LDX #POTVALUERIDEINMOTIONSTRING
+          STX CURRENTSTRING
+          JMP END_DECIDE_SCREEN
+
+          
+  END_POTVALUECHANGED_CHECK:
+  
+            
+          LDAA STARTRIDEFLAG
+          CMPA #0
+          BNE DISPLAY_RIDE_INTRO_SCREEN
+          JMP END_DISPLAY_RIDE_INTRO_SCREEN
+DISPLAY_RIDE_INTRO_SCREEN:
+          
+          LDX #RIDEINTROSTRING
+          STX CURRENTSTRING
+          JMP END_DECIDE_SCREEN
+          
+END_DISPLAY_RIDE_INTRO_SCREEN:
+          
+
+
+ 
+ ;SWITCH 2 HIGH??        
+ 		
+ 		
+ 		
+ 		BRSET PORT_T_VALUE,#%00000010,DISPLAY_RIDE_IN_MOTION_SHOW_RIDE_PART
+ 	
+ 		JMP END_DISPLAY_RIDE_IN_MOTION_SHOW_RIDE_PART         
+ 		         
+ 		         
+DISPLAY_RIDE_IN_MOTION_SHOW_RIDE_PART:
+        
+			LDX #RIDEINMOTIONSWITCH2FLIPPEDSTRING
+			STX CURRENTSTRING
+               JMP END_DECIDE_SCREEN
+
+END_DISPLAY_RIDE_IN_MOTION_SHOW_RIDE_PART:
+
+
+
+DISPLAY_RIDE_IN_MOTION_SCREEN:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ;ELSE    
+          LDX #RIDEINMOTIONSTRING                 ;ALL ELSE IS OFF THEN SHOW THEN GENERAL RIDE IN MOTION STRING
+          STX CURRENTSTRING
+          JMP END_DECIDE_SCREEN
+          
+END_DISPLAY_RIDE_IN_MOTION_SCREEN:
+
+
+
+
+ 
+       
+ END_RIDE_IN_MOTION_SCREEN_CHECK:
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ ;***********END RIDE IN MOTION SCREEN CHECK************************************
+ 
+ 
+ 
+ 
+ 
+ ;RIDE OUTRO SCREEN CHECK
+  RIDE_OUTRO_SCREEN_CHECK:
+ 
+          LDAA RIDEENDFLAG
+          CMPA #1
+          BNE END_RIDE_OUTRO_SCREEN_CHECK
+          
+          LDAA RIDEOUTROTIMER
+          CMPA #1
+          BNE END_RIDE_OUTRO_SCREEN_CHECK
+          
+          LDX #RIDEOUTROSTRING
+          STX CURRENTSTRING
+          JMP END_DECIDE_SCREEN
+           
+               
+               
+  END_RIDE_OUTRO_SCREEN_CHECK:             
+               
+               END_DECIDE_SCREEN:
+                        PULD
+                        PULY
+                        PULX
+                        
+                        RTS
+               

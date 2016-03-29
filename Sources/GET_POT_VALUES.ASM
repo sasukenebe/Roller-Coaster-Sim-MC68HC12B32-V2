@@ -1,0 +1,212 @@
+ 	 XDEF GET_POT_VALUES
+ 	 
+ 	 
+ 	 
+ 	 XREF pot_value
+ 	 XREF hundredsDigit 
+ 	 XREF tensDigit
+ 	 XREF onesDigit
+ 	 XREF  DISP
+ 	 XREF stringpointer
+ 	 XREF read_pot
+ 	 
+ 	 XREF PREVIOUSPOTVALUE
+ 	 XREF POTVALUECHANGEDFLAG
+ 	 XREF CURRENTCAR
+ 	 XREF CAR1POTVALUE
+ 	 XREF CAR2POTVALUE
+ 	 XREF CAR3POTVALUE
+ 	 XREF CAR4POTVALUE
+ 	 XREF CAR5POTVALUE
+ 	 XREF CAR6POTVALUE
+ 	 XREF CAR7POTVALUE
+ 	 XREF CAR8POTVALUE
+ 	 XREF RIDEINMOTIONFLAG
+ 	 
+ 	 XREF CARSETTINGS1FLAG
+ 	 XREF CARSETTINGS2FLAG
+ 	 XREF CARSETTINGS3FLAG
+ 	 XREF CARSETTINGS4FLAG
+ 	 XREF CARSETTINGSFLAG
+ 	 
+ 	 GET_POT_VALUES:
+ 	 PSHX
+ 	 PSHY
+ 	 PSHD
+ 	 
+ 	 
+ 	 jsr read_pot
+ 	 
+ 	 LDD pot_value
+ 	 CPD PREVIOUSPOTVALUE
+ 	 BNE POT_VALUE_CHANGED
+ 	 JMP END_GET_POT_VALUES 
+   POT_VALUE_CHANGED:
+
+      MOVW pot_value,PREVIOUSPOTVALUE
+
+      MOVB #1,POTVALUECHANGEDFLAG
+      
+      
+ 	 
+    ;separate digits of pot
+    LDX #100
+   							 ;LDAB pot_value
+    LDD    pot_value
+    IDIV      
+                        ;(D/X)   store answer in X remainder in D 
+    STX   hundredsDigit               
+    LDX 	#10 
+    IDIV                          ;(d/x) answer in x remainder in D
+    STX 	tensDigit
+    STD		onesDigit
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    ;Y,X,D is our pot, we need to add 30 to each
+    ;LDAB #$30
+    
+    LDD hundredsDigit
+    ADDD #$30
+    STD hundredsDigit
+    
+    LDD tensDigit
+    ADDD #$30
+    STD tensDigit
+    
+    LDD onesDigit
+    ADDD #$30
+    STD onesDigit
+ ;;;;;;;;;;;;;;;;;;;;;;;
+    
+    ;;;;;;;store the pot value on the STRING in disp+24,25,26
+    
+
+    
+  RIDE_IN_MOTION_SHOW_CAR_FROM_POT:
+  
+   
+       LDAA RIDEINMOTIONFLAG
+       CMPA #1
+       BEQ DECIDE_CURRENTCARFROMPOT
+       
+       LDAA CARSETTINGSFLAG
+       CMPA #1
+       BEQ DECIDE_CURRENTCARFROMPOT
+       
+       
+       
+       
+       JMP END_RIDE_IN_MOTION_DECIDE_CAR_FROM_POT
+  
+      
+DECIDE_CURRENTCARFROMPOT:									;DECIDE WHICH CAR IS CURRENTCAR
+      
+      LDD pot_value
+      CMPB CAR1POTVALUE
+      BLO  CURRENTCARIS_1                 ;LESS THAN CAR1 MEANS ITS CAR 1
+      
+      LDD pot_value
+      CMPB CAR2POTVALUE
+      BLO CURRENTCARIS_2
+      
+      LDD pot_value
+      CMPB CAR3POTVALUE
+      BLO CURRENTCARIS_3
+      
+      LDD pot_value
+      CMPB CAR4POTVALUE
+      BLO CURRENTCARIS_4
+      
+      LDD pot_value
+      CMPB CAR5POTVALUE
+      BLO CURRENTCARIS_5
+      
+      LDD pot_value
+      CMPB CAR6POTVALUE
+      BLO CURRENTCARIS_6
+      
+      LDD pot_value
+      CMPB CAR7POTVALUE
+      BLO CURRENTCARIS_7
+      
+      MOVB #8,CURRENTCAR
+      JMP END_RIDE_IN_MOTION_DECIDE_CAR_FROM_POT  
+      
+      
+END_RIDE_IN_MOTION_DECIDE_CAR_FROM_POT:      
+      
+      
+  UPDATE_CAR_VALUES_WITH_POT:
+  
+  							;DONT DO THIS IF YOURE IN CARSETTINGS1,CARSETTINGS2,CARSETTINGS3,CARSETTINGS4
+  		LDAA CARSETTINGSFLAG
+  		CMPA #1
+  		
+  		BEQ UPDATE_CAR_VALUE
+  		
+  		LDAA RIDEINMOTIONFLAG
+  		CMPA #1
+  		BEQ UPDATE_CAR_VALUE
+  		
+  		JMP DONT_UPDATE_CAR_VALUE					
+  		
+  							
+
+		  
+ UPDATE_CAR_VALUE:         
+          
+          CURRENTCARIS_1:
+          MOVB #1,CURRENTCAR
+          JMP END_RIDE_IN_MOTION_SHOW_CAR_FROM_POT
+          
+          CURRENTCARIS_2:
+          MOVB #2,CURRENTCAR
+          JMP END_RIDE_IN_MOTION_SHOW_CAR_FROM_POT
+          
+          CURRENTCARIS_3:
+          MOVB #3,CURRENTCAR
+          JMP END_RIDE_IN_MOTION_SHOW_CAR_FROM_POT
+          
+          CURRENTCARIS_4:
+          MOVB #4,CURRENTCAR
+          JMP END_RIDE_IN_MOTION_SHOW_CAR_FROM_POT
+          
+          CURRENTCARIS_5:
+          MOVB #5,CURRENTCAR
+          JMP END_RIDE_IN_MOTION_SHOW_CAR_FROM_POT
+          
+          CURRENTCARIS_6:
+          MOVB #6,CURRENTCAR
+          JMP END_RIDE_IN_MOTION_SHOW_CAR_FROM_POT
+          
+          CURRENTCARIS_7:
+          MOVB #7,CURRENTCAR
+          JMP END_RIDE_IN_MOTION_SHOW_CAR_FROM_POT
+          
+
+  DONT_UPDATE_CAR_VALUE:
+  
+  
+         
+            
+          END_RIDE_IN_MOTION_SHOW_CAR_FROM_POT:  
+            
+            
+            
+            
+  END_UPDATE_CAR_VALUES_WITH_POT:  
+    
+    
+    
+    
+    
+    
+    
+     END_GET_POT_VALUES: 
+    
+    
+    PULD
+    PULY
+    PULX
+    
+    RTS

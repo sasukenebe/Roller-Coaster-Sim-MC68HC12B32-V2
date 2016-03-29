@@ -1,0 +1,786 @@
+      XDEF WRITESTRING
+      
+      
+      XREF STRING_STORAGE
+      XREF WELCOME_STRING
+      XREF CURRENTSTRING  
+      XREF LAURA_STRING
+            
+      XREF STRING_COUNTER
+      XREF DISP
+      XREF DISPLAYTIMESTRING
+      
+      XREF SECONDS
+      XREF MINUTES
+      XREF HOURS
+      XREF TENSECONDS
+      XREF ONESECONDS
+      XREF TENMINUTES
+      XREF ONEMINUTES
+      XREF TENHOURS
+      XREF ONEHOURS
+      XREF MAINMENUFLAG
+      
+      XREF GET_CLOCK_VALUES
+      XREF DISPLAY_TIME_BOTTOM_RIGHT_FLAG
+      XREF RIDEARRAYCOUNT
+      XREF RIDELAYOUTFLAG
+      XREF HEXKEYPRESSED
+      XREF CARSETTINGSFLAG
+      XREF HEXVALUE
+      
+      XREF TENMONTHSINPUT
+      XREF DAYSINPUT
+      XREF TENDAYSINPUT
+      XREF MONTHSINPUT
+      
+          
+       XREF CURRENTCAR                      
+       XREF CARPASSENGERS                   
+       XREF CARADULTKIDS                    
+       XREF CARSEATSOCCUPIED                
+       XREF CARPHOTOOPTIONS
+       XREF CARSETTINGS1FLAG  
+       XREF CARSETTINGS2FLAG
+       XREF CARSETTINGS3FLAG
+       XREF CARSETTINGS4FLAG
+       XREF DISPLAYPOTVALUESFLAG
+       XREF POTVALUECHANGEDFLAG 
+       XREF RIDEINMOTIONFLAG 
+       XREF VARIABLE_1
+       XREF CURRENTRIDEPART
+       XREF STARTRIDETIMER
+       
+       XREF stringpointer
+       XREF POTVALUECHANGEDTIMER
+       XREF PORT_T_VALUE 
+       XREF CHANGEDATEFLAG
+       
+       
+       XREF TENHOURSINPUTSTRING
+       XREF HOURSINPUTSTRING
+       XREF TENMINUTESINPUTSTRING
+       XREF MINUTESINPUTSTRING
+       
+       XREF TENSECONDSINPUTSTRING
+       XREF SECONDSINPUTSTRING
+       
+       
+       
+       
+       XREF hundredsDigit
+       XREF tensDigit
+       XREF onesDigit
+       XREF CHANGETIMEFLAG
+       XREF SYSPASSFLAG
+       XREF PASSWORD
+       XREF PASSWORDSTRING
+       XREF RIDEBEGINFLAG
+       XREF PASSWORDLOCKED
+
+
+
+
+
+
+WRITESTRING:        ;WRITES CURRENTSTRING TO DISP
+      
+      
+            PSHX
+            PSHY
+            PSHD
+
+
+            
+            
+            
+            
+            
+            
+            
+                         movb     #32,STRING_COUNTER
+                         movb     #0, DISP+32            ;THIS IS THE NULL TERMINATOR AT END OF STRING
+                       
+                         ldx      #DISP
+                         ldy      CURRENTSTRING
+ WRITESTRINGLOOP:        ldaa     1,y+
+                         staa     1,x+
+                         dec      STRING_COUNTER
+                         bne      WRITESTRINGLOOP
+ 
+ 
+                            ;ANYTHING HERE WILL OVERWRITE THE STATIC STRING (ON DISP, NOT ON THE STRING ITSELF)
+ 
+ 
+ 
+ 
+ ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+    DISPLAY_TIME_BOTTOM_RIGHT: ;DISPLAY DATE TOO				;DATE 16-20 _ _ / _ _ 
+ 
+ 
+ 
+ 
+
+			
+			BRSET PORT_T_VALUE,#%00000010,DISPLAY_TIME_BOTTOM_RIGHT_OK
+			
+			LDAA CHANGEDATEFLAG
+			CMPA #1
+			BEQ DISPLAY_DATE_ONLY
+			JMP DONT_DISPLAY_TIME_BOTTOM_RIGHT
+			
+			JMP DONT_DISPLAY_TIME_BOTTOM_RIGHT
+			
+			
+			
+			
+DISPLAY_TIME_BOTTOM_RIGHT_OK:
+
+			              
+               ;JSR GET_CLOCK_VALUES
+
+
+
+DISPLAY_DATE_ONLY:               
+               MOVB TENMONTHSINPUT,DISP+16
+               MOVB MONTHSINPUT,DISP+17
+               MOVB #'/',DISP+18
+               MOVB TENDAYSINPUT,DISP+19
+               MOVB DAYSINPUT,DISP+20
+ END_DISPLAY_DATE_ONLY:              
+              
+                MOVB TENHOURS,DISP+24
+                MOVB ONEHOURS,DISP+25
+                
+                MOVB #':',DISP+26
+                
+                MOVB TENMINUTES,DISP+27
+                MOVB ONEMINUTES,DISP+28
+                
+                MOVB #':',DISP+29
+                
+                MOVB TENSECONDS,DISP+30
+                MOVB ONESECONDS,DISP+31
+                MOVB #'0',DISP+32
+                
+
+
+    DONT_DISPLAY_TIME_BOTTOM_RIGHT:
+ ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+ ;DISPLAY SYS PASS AS YOU INPUT IT MOTHERFUCKER !		;(FOR MAIN MENU!!!!!)
+DISPLAY_SYSPASS_AS_YOU_ENTER_IT:
+ 
+ 		LDAA SYSPASSFLAG
+ 		CMPA #1
+ 		BNE END_DISPLAY_SYSPASS_AS_YOU_ENTER_IT
+ 		
+ 		
+ 		
+ 		LDAA PASSWORD
+ 		ADDA #$30
+ 		STAA PASSWORDSTRING
+ 		
+ 		MOVB PASSWORDSTRING,DISP+16
+ 		
+ 		
+ 		LDAA PASSWORD+1
+ 		ADDA #$30
+ 		STAA PASSWORDSTRING+1
+ 		
+ 		MOVB PASSWORDSTRING+1,DISP+17
+ 		
+ 		
+ 		LDAA PASSWORD+2
+ 		ADDA #$30
+ 		STAA PASSWORDSTRING+2
+ 		
+ 		
+ 		MOVB PASSWORDSTRING+2,DISP+18
+ 		
+ 		LDAA PASSWORD+3
+ 		ADDA #$30
+ 		STAA PASSWORDSTRING+3
+ 		
+ 		MOVB PASSWORDSTRING+3,DISP+19
+ 		
+ 		
+ 		
+ 
+ 
+ 
+ END_DISPLAY_SYSPASS_AS_YOU_ENTER_IT:
+ ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+  ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+ ;WHILE RIDE IS IN MOTION THIS WILL BE USED TO DISPLAY THE PASSWORD IF YOU ARE ENTERING IT
+ 		
+ 		
+ 		
+ 		BRSET PORT_T_VALUE,#%00000010,END_DISPLAY_SYSPASS_AS_YOU_ENTER_IT_RIDEINMOTION
+ 		
+ 		
+ 		
+		LDAA PASSWORDLOCKED
+		CMPA #1
+		BNE END_DISPLAY_SYSPASS_AS_YOU_ENTER_IT_RIDEINMOTION 		
+ 	
+ 		LDX POTVALUECHANGEDTIMER
+	CPX #0
+	BNE END_DISPLAY_SYSPASS_AS_YOU_ENTER_IT_RIDEINMOTION
+	
+	
+	
+ 	
+ 	LDAA RIDEBEGINFLAG
+ 	CMPA #1 
+ 	BEQ  END_DISPLAY_SYSPASS_AS_YOU_ENTER_IT_RIDEINMOTION
+ 	
+ 	
+ 	
+
+ 	LDAA RIDEINMOTIONFLAG
+ 	CMPA #1
+ 	BEQ DISPLAY_SYSPASS_AS_YOU_ENTER_IT_RIDEINMOTION
+	
+	
+
+
+	
+	
+	
+	
+		JMP  END_DISPLAY_SYSPASS_AS_YOU_ENTER_IT_RIDEINMOTION
+		
+DISPLAY_SYSPASS_AS_YOU_ENTER_IT_RIDEINMOTION:
+
+ 		
+ 		MOVB PASSWORDSTRING,DISP+16
+ 
+ 		
+ 		MOVB PASSWORDSTRING+1,DISP+17
+ 		
+
+ 		MOVB PASSWORDSTRING+2,DISP+18
+
+ 		MOVB PASSWORDSTRING+3,DISP+19
+ 		
+ 		
+ 		
+ 
+ 
+ 
+ END_DISPLAY_SYSPASS_AS_YOU_ENTER_IT_RIDEINMOTION:
+ ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ; DISPLAY THE TIME INPUT AS YOU CHANGE IT 01/34/78
+ 
+ 
+ DISPLAY_TIME_AS_YOU_CHANGE_IT:
+ 
+ 
+ 			LDAA CHANGETIMEFLAG
+ 			CMPA #1
+ 			BNE END_DISPLAY_TIME_AS_YOU_CHANGE_IT
+ 			
+ 			
+ 			MOVB TENHOURSINPUTSTRING,DISP
+ 			MOVB HOURSINPUTSTRING,DISP+1
+ 			
+ 			MOVB #':',DISP+2
+ 			
+ 			MOVB TENMINUTESINPUTSTRING,DISP+3
+ 			MOVB MINUTESINPUTSTRING,DISP+4
+ 				
+ 				MOVB #':',DISP+5	
+ 			
+ 			MOVB TENSECONDSINPUTSTRING,DISP+6
+ 			MOVB SECONDSINPUTSTRING,DISP+7
+ 			
+ 
+ 
+ 
+ 
+ END_DISPLAY_TIME_AS_YOU_CHANGE_IT:
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ;SHOWS WHICH PART OF THE TRACK YOU ARE BUILDING
+ 
+    DISPLAY_CURRENT_CAR_COMPONENT:  ; (RIDEARRAYCOUNT)
+        LDAA RIDELAYOUTFLAG
+        CMPA #1
+        
+        BNE END_DISPLAY_CURRENT_CAR_COMPONENT
+        
+        
+        LDAA #$30
+        
+        ADDA RIDEARRAYCOUNT
+        INCA
+        STAA DISP+22
+        
+        
+        
+    END_DISPLAY_CURRENT_CAR_COMPONENT:
+        
+   
+   
+       
+       
+       
+        
+ ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ;DISPLAYS WHICH CAR YOU WILL CHOOSE AFTER HITTING E WHEN IN CAR SETTINGS, MOVE TO CARSETTINGS2 WITH THIS VALUE
+ 
+ ;THIS IS ONLY FOR 1 SCREEN --> CARSETTINGS
+        
+   DISPLAY_CARVALUE_NEAR_22:    ;FOR CAR SETTINGS RIGHT NOW
+     LDAA CARSETTINGSFLAG
+     CMPA #1
+     BNE END_DISPLAY_CARVALUE_NEAR_22
+     
+
+     
+     
+     LDAA CURRENTCAR
+     ADDA #$30
+     STAA DISP+22
+   
+   
+   
+   END_DISPLAY_CARVALUE_NEAR_22:
+ ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+  ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~           
+   CHECK_DISPLAY_CURRENTCAR:    ;FOR CAR SETTINGS RIGHT NOW
+   
+   
+   ;THIS IS USED FOR CARSETTINGS 1 -->4 , DISPLAYS TEH CAR YOU ARE EDITING IN THE BOTTOM RIGHT 
+     
+     LDAA CARSETTINGS1FLAG
+     CMPA #1
+     BEQ DISPLAY_CURRENTCAR
+     LDAA CARSETTINGS2FLAG
+     CMPA #1
+     BEQ DISPLAY_CURRENTCAR
+     LDAA CARSETTINGS3FLAG
+     CMPA #1
+     BEQ DISPLAY_CURRENTCAR
+     LDAA CARSETTINGS4FLAG
+     CMPA #1
+     BEQ DISPLAY_CURRENTCAR
+     JMP END_DISPLAY_CURRENTCAR
+     
+
+
+     
+     
+     
+ DISPLAY_CURRENTCAR:    
+     LDAA CURRENTCAR
+     ADDA #$30
+     STAA DISP+30
+     MOVB #'(',DISP+29
+     MOVB #')',DISP+31
+   
+   
+   
+   END_DISPLAY_CURRENTCAR:
+   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+   
+   
+   
+   
+   
+   ;DISPLAY POT VALUES~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+   LDAA DISPLAYPOTVALUESFLAG
+   CMPA #1
+   BNE END_DISPLAY_POTVALUES
+    
+                                LDD hundredsDigit
+                                STAB DISP
+                                LDD tensDigit
+                                STAB DISP+1  
+                                LDD onesDigit
+                                STAB DISP+2  
+                                LDD  #DISP
+                                STD  stringpointer
+   
+   
+    END_DISPLAY_POTVALUES:
+   ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+      
+ 
+                                                 
+ ;***************RIDE IN MOTION CHECKS?????? FOR DYNAMIC INFORMATION OR SCREEN MASKING
+ 
+ ;CARPASSENGERS                 
+;CARADULTKIDS                    
+;CARSEATSOCCUPIED                
+;CARPHOTOOPTIONS                   
+
+          
+          
+     ;6=#PASS 11=A/C 16=OCCUP 23=PHOTO
+     ; ;PUT CURRENT HEXVALUE INTO RIDEARRAYINPUT + RIDEARRAYCOUNT ADDRESS   
+
+ 
+        LDAA RIDEINMOTIONFLAG
+        CMPA #1
+        BEQ CHECK_POTVALUECHANGED_FLAG
+        JMP END_RIDE_IN_MOTION_CHECK
+  
+        
+        
+        
+        
+        
+        
+        
+        
+        
+ CHECK_POTVALUECHANGED_FLAG:
+
+        
+        LDX POTVALUECHANGEDTIMER
+        CPX #0
+        BEQ END_DISPLAY_CURRENTCAR_RIDEINMOTION
+        
+        BRSET PORT_T_VALUE,#%00000010,END_DISPLAY_CURRENTCAR_RIDEINMOTION
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          DISPLAY_CURRENTCAR_RIDEINMOTION:
+          
+          
+          					
+          						 
+                 
+     LDAA CURRENTCAR
+     ADDA #$30
+     STAA DISP+30
+     MOVB #'(',DISP+29
+     MOVB #')',DISP+31  
+
+     	   LDD CURRENTCAR         ;PUTS IT INTO A  D = B:A MAYBE?????
+	       CLRB
+	       TAB
+	       CLRA
+	       ADDD #CARPASSENGERS          
+	       XGDX                           ;X NOW HAS ADDRESS TO PUT HEXVALUE IN 
+	       
+
+	       LDAA 0,X
+	       ADDA #$30
+	       STAA DISP+6
+	       
+	      
+	       
+	       LDD CURRENTCAR         ;PUTS IT INTO A  D = B:A MAYBE?????
+	       CLRB
+	       TAB
+	       CLRA
+	       ADDD #CARADULTKIDS          
+	       XGDX                           ;X NOW HAS ADDRESS TO PUT HEXVALUE IN 
+	       
+	       
+	       
+	      
+	       LDAA 0,X
+	       ADDA #$30
+	       STAA DISP+11
+
+	       
+		       LDD CURRENTCAR         ;PUTS IT INTO A  D = B:A MAYBE?????
+	       CLRB
+	       TAB
+	       CLRA
+	       ADDD #CARSEATSOCCUPIED          
+	       XGDX                           ;X NOW HAS ADDRESS TO PUT HEXVALUE IN 
+	       
+
+	       LDAA 0,X
+	       ADDA #$30
+	       STAA DISP+16
+	       
+
+	       
+	       
+	       
+	       
+	       LDD CURRENTCAR         ;PUTS IT INTO A  D = B:A MAYBE?????
+	       CLRB
+	       TAB
+	       CLRA
+	       ADDD #CARPHOTOOPTIONS          
+	       XGDX                           ;X NOW HAS ADDRESS TO PUT HEXVALUE IN 
+	       
+	       
+	       LDAA 0,X
+	       ADDA #$30
+	       STAA DISP+23
+
+	       LDD  #DISP
+         STD  stringpointer
+
+     
+     
+     END_DISPLAY_CURRENTCAR_RIDEINMOTION:
+     
+     
+     
+        
+      LDAA RIDEINMOTIONFLAG
+      CMPA #1
+      BNE END_DISPLAY_CURRENT_RIDE_PART
+
+
+
+DISPLAY_CURRENT_RIDE_PART:
+
+
+
+
+END_DISPLAY_CURRENT_RIDE_PART:      
+      
+
+        
+        
+        END_POTVALUECHANGED_CHECK:
+        
+  
+  
+  
+  
+ 
+ 
+ 
+ ;************************************* ONLY IF SWITCH 2 IS HIGH 
+  DISPLAY_PART_OF_RIDE_YOURE_ON:          
+        
+        LDAA STARTRIDETIMER               ;DONT DO THIS UNTIL THE INTRO SCREEN IS GONE
+        CMPA #0
+        BEQ CHECK_SWITCH2
+        JMP END_DISPLAY_PART_OF_RIDE_YOURE_ON
+        
+        
+ CHECK_SWITCH2:       
+        
+        BRSET PORT_T_VALUE,#%00000010, GO_AHEAD
+        JMP END_DISPLAY_PART_OF_RIDE_YOURE_ON
+        
+    GO_AHEAD:
+        
+        LDAA CURRENTRIDEPART
+        CMPA #5
+        BEQ DISPLAY_START
+        
+        LDAA CURRENTRIDEPART
+        CMPA #1
+        BEQ DISPLAY_LEFT
+        
+        LDAA CURRENTRIDEPART
+        CMPA #2
+        BEQ DISPLAY_RIGHT
+        
+        LDAA CURRENTRIDEPART
+        CMPA #3
+        BEQ DISPLAY_HILL
+        
+        LDAA CURRENTRIDEPART
+        CMPA #4
+        BEQ DISPLAY_STR8
+        
+        LDAA CURRENTRIDEPART
+        CMPA #6
+        BEQ DISPLAY_END
+        
+
+     
+        
+ DISPLAY_START:
+  MOVB #'S',DISP+11
+  MOVB #'T',DISP+12
+  MOVB #'A',DISP+13
+  MOVB #'R',DISP+14
+  MOVB #'T',DISP+15
+ 
+ 
+ END_DISPLAY_START:
+        
+        
+ JMP END_DISPLAY_PART_OF_RIDE_YOURE_ON
+ 
+        
+DISPLAY_LEFT:
+  MOVB #'L',DISP+11
+  MOVB #'E',DISP+12
+  MOVB #'F',DISP+13
+  MOVB #'T',DISP+14
+  
+
+END_DISPLAY_LEFT:        
+        
+ 
+ 
+ JMP END_DISPLAY_PART_OF_RIDE_YOURE_ON
+ 
+ DISPLAY_RIGHT:
+   MOVB #'R',DISP+11
+  MOVB #'I',DISP+12
+  MOVB #'G',DISP+13
+  MOVB #'H',DISP+14
+  MOVB #'T',DISP+15
+ 
+ 
+ 
+ END_DISPLAY_RIGHT:
+ 
+ 
+ 
+ JMP END_DISPLAY_PART_OF_RIDE_YOURE_ON
+ 
+ 
+ DISPLAY_HILL:
+   MOVB #'H',DISP+11
+  MOVB #'I',DISP+12
+  MOVB #'L',DISP+13
+  MOVB #'L',DISP+14
+  
+ 
+ END_DISPLAY_HILL:       
+     
+        
+        
+ JMP END_DISPLAY_PART_OF_RIDE_YOURE_ON
+ 
+        
+ DISPLAY_STR8:
+  MOVB #'S',DISP+11
+  MOVB #'T',DISP+12
+  MOVB #'R',DISP+13
+  MOVB #'8',DISP+14
+
+ END_DISPLAY_STR8:
+ 
+ 
+ JMP END_DISPLAY_PART_OF_RIDE_YOURE_ON
+ 
+ 
+ DISPLAY_END:
+   MOVB #'E',DISP+11
+  MOVB #'N',DISP+12
+  MOVB #'D',DISP+13
+ END_DISPLAY_END:
+        
+               
+        
+        
+        
+        
+          
+    
+END_DISPLAY_PART_OF_RIDE_YOURE_ON:
+
+  ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+  
+  
+  
+  
+  
+  
+  
+  ;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+
+            
+            
+            
+       END_RIDE_IN_MOTION_CHECK:     
+            
+            END_WRITESTRING:
+            
+            PULD
+            PULY
+            PULX
+            
+            RTS
